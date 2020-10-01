@@ -11,19 +11,23 @@
 #include <cstdlib>
 #include <ctime>
 
-using std::string;
 
 namespace cis427 {
-    class quotedb {
+    class QuoteDB {
     public:
-        quotedb(const string &path_to_quotes);
+        explicit QuoteDB(const std::string &path_to_quotes);
 
-        string get_random_quote();
+        QuoteDB();
+
+        std::string get_random_quote();
+
+        std::string get_quote(const unsigned long &index);
+
+        int get_num_quotes();
 
     private:
-        string get_quote(const unsigned long &index);
 
-        std::vector<string> m_quotes;
+        std::vector<std::string> m_quotes;
         std::ifstream m_file;
 
     };

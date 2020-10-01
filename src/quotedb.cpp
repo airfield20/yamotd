@@ -4,27 +4,47 @@
 
 #include "quotedb.h"
 
-cis427::quotedb::quotedb(const string& path_to_quotes) {
+cis427::QuoteDB::QuoteDB(const std::string& path_to_quotes) {
     std::srand(std::time(nullptr));
     m_file.open(path_to_quotes);
-    string line = "";
-    string quote = "";
+    if(!m_file.is_open()){
+        throw std::runtime_error("FILE NOT FOUND");
+    }
+    std::string line = "";
+    std::string quote = "";
     while(std::getline(m_file, line)){
-        if(line.at(0) == '-' && line.at(1) == '-' && quote != ""){
+        if(!line.empty() && line.at(0) == '-' && line.at(1) == '-' && !quote.empty()){
+            quote.push_back('\n');
             quote.append(line);
             m_quotes.push_back(quote);
             quote = "";
         }
         else{
-            quote.append(line);
+            if(!line.empty()) {
+                if (!quote.empty()) {
+                    quote.push_back('\n');
+                }
+                quote.append(line);
+            }
         }
     }
 }
 
-string cis427::quotedb::get_random_quote() {
-    return get_quote(std::rand() % m_quotes.size());
+cis427::QuoteDB::QuoteDB() : m_quotes({}) {}
+
+std::string cis427::QuoteDB::get_random_quote() {
+    return m_quotes.at(std::rand() % m_quotes.size());
 }
 
-string cis427::quotedb::get_quote(const unsigned long &index) {
-    return std::__cxx11::string();
+std::string cis427::QuoteDB::get_quote(const unsigned long &index) {
+    if(index < m_quotes.size()) {
+        return m_quotes.at(index);
+    }
+    throw std::runtime_error("QUOTE INDEX INVALID");
 }
+
+int cis427::QuoteDB::get_num_quotes() {
+    return m_quotes.size();
+}
+
+

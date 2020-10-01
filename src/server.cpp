@@ -7,15 +7,9 @@
 cis427::Server::Server(const unsigned int &port, const std::string &path_to_messages) :
         m_message_file_path(path_to_messages),
         m_port(port),
-        m_messages({}),
-        m_buff({}){
-
-    int err = load_messages(path_to_messages);
-    if (err) {
-        cerr << "Unable to load messages. Error Code: " << err << endl;
-        throw std::runtime_error("MESSAGES NOT FOUND");
-    }
-
+        m_buff({}),
+        m_socklen{},
+        m_sockaddr_in{}{
     memset(reinterpret_cast<char *>(&m_sockaddr_in), 0, sizeof(m_sockaddr_in));
     m_sockaddr_in.sin_family = AF_INET;
     m_sockaddr_in.sin_addr.s_addr = INADDR_ANY;
@@ -26,7 +20,6 @@ cis427::Server::Server(const unsigned int &port, const std::string &path_to_mess
         perror("socket");
         exit(1);
     }
-
 
 }
 
@@ -48,10 +41,6 @@ int cis427::Server::start_server() {
 }
 
 int cis427::Server::stop_server(const string &exit_reason) {
-    return 0;
-}
-
-int cis427::Server::load_messages(const string &path) {
     return 0;
 }
 

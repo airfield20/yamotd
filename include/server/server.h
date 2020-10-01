@@ -17,6 +17,7 @@
 #include <unistd.h>
 
 #include "connection.h"
+#include "quotedb.h"
 
 using std::string;
 using std::cout;
@@ -38,11 +39,10 @@ namespace cis427 {
 
     private:
         int stop_server(const std::string& exit_reason);
-        int load_messages(const std::string& path);
         string connection_handler(Connection& conn);
 
         std::string m_message_file_path;
-        std::vector<string> m_messages;
+        cis427::QuoteDB m_quote_db;
         std::vector<Connection> clients;
         unsigned int m_port;
         struct sockaddr_in m_sockaddr_in;
