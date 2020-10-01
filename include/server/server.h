@@ -11,7 +11,10 @@
 #include <vector>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <arpa/inet.h>
 #include <array>
+#include <stdio.h>
+#include <unistd.h>
 
 #include "connection.h"
 
@@ -23,6 +26,7 @@ using std::endl;
 using cis427::Connection;
 
 #define MAX_COMMAND_LENGTH 500
+#define MAX_PENDING_CONNECTIONS 5
 
 namespace cis427 {
     class Server {
@@ -30,16 +34,21 @@ namespace cis427 {
         Server(const unsigned int& port, const std::string& path_to_messages);
         int start_server();
 
+        virtual ~Server();
+
     private:
         int stop_server(const std::string& exit_reason);
         int load_messages(const std::string& path);
+        string connection_handler(Connection& conn);
 
         std::string m_message_file_path;
         std::vector<string> m_messages;
+        std::vector<Connection> clients;
         unsigned int m_port;
         struct sockaddr_in m_sockaddr_in;
         socklen_t m_socklen;
         std::array<char, MAX_COMMAND_LENGTH> m_buff;
+        int m_socket;
     };
 }
 
