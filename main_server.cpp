@@ -1,6 +1,9 @@
-#include <iostream>
+#include "server.h"
+
+#define SERVER_PORT 8081
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    cis427::Server server(SERVER_PORT, "../messages.txt");
+    server.start_server();
     return 0;
 }
