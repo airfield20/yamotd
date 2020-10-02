@@ -5,10 +5,10 @@
 #include "quotedb.h"
 
 cis427::QuoteDB::QuoteDB(const std::string& path_to_quotes) {
-    std::srand(std::time(nullptr));
+    std::srand(std::time(NULL));
     m_file.open(path_to_quotes);
     if(!m_file.is_open()){
-        throw std::runtime_error("FILE NOT FOUND");
+        throw 1;
     }
     std::string line = "";
     std::string quote = "";
@@ -40,7 +40,7 @@ std::string cis427::QuoteDB::get_quote(const unsigned long &index) {
     if(index < m_quotes.size()) {
         return m_quotes.at(index);
     }
-    throw std::runtime_error("QUOTE INDEX INVALID");
+    throw 2;
 }
 
 int cis427::QuoteDB::get_num_quotes() {
