@@ -7,10 +7,20 @@
 
 #include <string>
 
+#define MAX_COMMAND_LENGTH 500
+
 namespace cis427{
     struct Connection{
-        bool isLoggedIn;
+        std::string user;
         std::string addr;
+        int socket_fd;
+        std::array<char, MAX_COMMAND_LENGTH> buff;
+        bool wait_for_follow_up_command = false;
+    };
+
+    struct Response{
+        int code;
+        std::array<char, MAX_COMMAND_LENGTH> buff;
     };
 }
 

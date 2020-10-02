@@ -1,5 +1,5 @@
-#include "catch.hpp"
-#include "quotedb.h"
+#include "../include/external/catch2/catch.hpp"
+#include "../include/server/quotedb.h"
 #include <iostream>
 
 TEST_CASE("DB read test", "[db read]"){

@@ -13,11 +13,11 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <array>
-#include <stdio.h>
+#include <cstdio>
 #include <unistd.h>
+#include <algorithm>
 
 #include "connection.h"
-#include "quotedb.h"
 
 using std::string;
 using std::cout;
@@ -26,30 +26,29 @@ using std::endl;
 
 using cis427::Connection;
 
-#define MAX_COMMAND_LENGTH 500
 #define MAX_PENDING_CONNECTIONS 5
 
 namespace cis427 {
     class Server {
     public:
-        Server(const unsigned int& port, const std::string& path_to_messages);
-        int start_server();
+        Server(const unsigned int& port);
+        int start_server(Response(*callback_function)(Connection&));
 
         virtual ~Server();
 
     private:
         int stop_server(const std::string& exit_reason);
-        string connection_handler(Connection& conn);
+        int connection_handler(Connection& conn);
 
-        std::string m_message_file_path;
-        cis427::QuoteDB m_quote_db;
         std::vector<Connection> clients;
         unsigned int m_port;
         struct sockaddr_in m_sockaddr_in;
         socklen_t m_socklen;
-        std::array<char, MAX_COMMAND_LENGTH> m_buff;
+        Response (*m_callback_function)(Connection&);
         int m_socket;
     };
+
+    std::array<char, MAX_COMMAND_LENGTH> to_buff(const std::string& str);
 }
 
 #endif //P1_SERVER_H

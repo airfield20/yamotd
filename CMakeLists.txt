@@ -40,11 +40,11 @@ target_include_directories(${PROJECT_NAME}_server PRIVATE ${SERVER_INCLUDE_DIR})
 ##DEMO APP##
 ############
 
-file(GLOB_RECURSE CFILES "${CMAKE_SOURCE_DIR}/P1_docs/*.c")
+file(GLOB_RECURSE CFILES "${CMAKE_SOURCE_DIR}/P1_docs/*.cpp")
 set_source_files_properties(${CFILES} PROPERTIES LANUGAGE CXX)
 
-#add_executable(${PROJECT_NAME}_demo_server P1_docs/sampleP1/server.c)
-#add_executable(${PROJECT_NAME}_demo_client P1_docs/sampleP1/client.c)
+add_executable(${PROJECT_NAME}_demo_server P1_docs/sampleP1/server_demo.cpp)
+add_executable(${PROJECT_NAME}_demo_client P1_docs/sampleP1/client_demo.cpp)
 
 ###########
 ##TESTING##

@@ -2,7 +2,7 @@
 // Created by aaron on 2020-10-01.
 //
 
-#include "quotedb.h"
+#include "../include/server/quotedb.h"
 
 cis427::QuoteDB::QuoteDB(const std::string& path_to_quotes) {
     std::srand(std::time(NULL));
@@ -10,8 +10,8 @@ cis427::QuoteDB::QuoteDB(const std::string& path_to_quotes) {
     if(!m_file.is_open()){
         throw 1;
     }
-    std::string line = "";
-    std::string quote = "";
+    std::string line;
+    std::string quote;
     while(std::getline(m_file, line)){
         if(!line.empty() && line.at(0) == '-' && line.at(1) == '-' && !quote.empty()){
             quote.push_back('\n');
