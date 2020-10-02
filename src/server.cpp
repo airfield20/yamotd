@@ -57,12 +57,12 @@ int cis427::Server::connection_handler(Connection &conn) {
         }
         cout << "new connection from " << inet_ntoa(m_sockaddr_in.sin_addr) << endl;
         conn.addr = std::string(inet_ntoa(m_sockaddr_in.sin_addr));
-        while ((recv(conn.socket_fd, conn.buff.data(), conn.buff.size(), 0)) && !stop) {
+        while (!stop && (recv(conn.socket_fd, conn.buff.data(), conn.buff.size(), 0))) {
             Response output = m_callback_function(conn);
             std::cout << "GOT: " << std::string(conn.buff.data()) << " SENDING: " << std::string(output.buff.data()) << std::endl;
             send (conn.socket_fd, output.buff.data(), strlen(output.buff.data()) + 1, 0);
             std::transform(output.buff.begin(), output.buff.end(),output.buff.begin(), ::toupper);
-            if(std::string(output.buff.data()) == "SHUTDOWN" && conn.user == "root"){
+            if(conn.shutdown_command){
                 stop = true;
             }
         }
@@ -76,7 +76,9 @@ int cis427::Server::connection_handler(Connection &conn) {
 
 cis427::Server::~Server() {
 //close all socket connections here
-
+    for(const auto& conn: clients){
+        close(conn.socket_fd);
+    }
 }
 
 std::array<char, MAX_COMMAND_LENGTH> cis427::to_buff(const std::string& str){

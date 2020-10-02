@@ -12,7 +12,7 @@ bool login(const std::string& username, const std::string& password){
     std::array<std::string, 4> passwords = {"root01", "john01", "david01", "mary01"};
 
     int user_index = std::distance(users.begin(), std::find(users.begin(),users.end(), username));
-    if(user_index < 5 && password == passwords.at(user_index) ){
+    if(user_index < 5 && password.compare(passwords.at(user_index)) ){
         return true;
     }
     return false;
@@ -51,6 +51,7 @@ cis427::Response callback(cis427::Connection& conn){
         else{
             response.code = 200;
             response.buff = cis427::to_buff("OK");
+            conn.shutdown_command = true;
         }
     }
     else if(client_input.substr(0, 5) == "LOGIN"){

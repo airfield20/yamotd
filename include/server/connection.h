@@ -16,6 +16,7 @@ namespace cis427{
         int socket_fd;
         std::array<char, MAX_COMMAND_LENGTH> buff;
         bool wait_for_follow_up_command = false;
+        bool shutdown_command = false;
     };
 
     struct Response{
