@@ -64,7 +64,7 @@ string cis427::Server::connection_handler(Connection &conn) {
         close(new_s);
     }
 
-    return std::__cxx11::string("");
+    return "";
 }
 
 cis427::Server::~Server() {
