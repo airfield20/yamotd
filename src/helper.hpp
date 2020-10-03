@@ -19,7 +19,7 @@ namespace cis427 {
   * @brief We are confined to c++ 98 so this macro is for converting ints to strings
   */
 
-    std::string NumberToString ( int Number )
+    inline std::string NumberToString ( int Number )
     {
         std::ostringstream ss;
         ss << Number;
@@ -31,7 +31,7 @@ namespace cis427 {
      * @param str
      * @return
      */
-    int FromString(const std::string& str)
+    inline int FromString(const std::string& str)
     {
         std::istringstream ss(str);
         int ret;

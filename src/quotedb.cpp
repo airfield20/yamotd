@@ -4,9 +4,10 @@
 
 #include "../include/server/quotedb.h"
 
-cis427::QuoteDB::QuoteDB(const std::string& path_to_quotes): m_path_to_quotes(path_to_quotes) {
+cis427::QuoteDB::QuoteDB(const std::string& path_to_quotes) {
     std::srand(std::time(NULL));
-    m_file.open(path_to_quotes, std::ios::in);
+    m_path_to_quotes = path_to_quotes;
+    m_file.open(path_to_quotes.c_str(), std::ios::in);
     if(!m_file.is_open()){
         throw 1;
     }
@@ -31,7 +32,7 @@ cis427::QuoteDB::QuoteDB(const std::string& path_to_quotes): m_path_to_quotes(pa
     m_file.close();
 }
 
-cis427::QuoteDB::QuoteDB() : m_quotes({}) {}
+cis427::QuoteDB::QuoteDB() {}
 
 std::string cis427::QuoteDB::get_random_quote() {
     return m_quotes.at(std::rand() % m_quotes.size());
@@ -73,9 +74,9 @@ bool cis427::QuoteDB::add_quote(const std::string &quote, const std::string &aut
 }
 
 bool cis427::QuoteDB::write_quotes_to_file() {
-    m_file.open(m_path_to_quotes, std::ios::out | std::ios::trunc);
-    for(const auto& quote : m_quotes){
-        m_file << quote << std::endl << std::endl;
+    m_file.open(m_path_to_quotes.c_str(), std::ios::out | std::ios::trunc);
+    for(int i=0;i < m_quotes.size();i++){
+        m_file << m_quotes.at(i) << std::endl << std::endl;
     }
     m_file.close();
     return false;
