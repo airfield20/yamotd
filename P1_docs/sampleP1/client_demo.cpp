@@ -17,7 +17,7 @@
 using namespace std;
 
 #define SERVER_PORT 8081
-#define MAX_LINE 256
+#define MAX_LINE 5000
 
 int main(int argc, char * argv[]) {
 

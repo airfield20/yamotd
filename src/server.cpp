@@ -41,10 +41,6 @@ int cis427::Server::start_server(Response(*callback_function)(Connection&)) {
     return 0;
 }
 
-int cis427::Server::stop_server(const string &exit_reason) {
-    return 0;
-}
-
 int cis427::Server::connection_handler(Connection &conn) {
 
     /* wait for connection, then receive and print text */
@@ -60,13 +56,12 @@ int cis427::Server::connection_handler(Connection &conn) {
         while (!stop && (recv(conn.socket_fd, conn.buff.data(), conn.buff.size(), 0))) {
             Response output = m_callback_function(conn);
             std::cout << "GOT: " << std::string(conn.buff.data()) << " SENDING: " << std::string(output.buff.data()) << std::endl;
-            send (conn.socket_fd, output.buff.data(), strlen(output.buff.data()) + 1, 0);
-            std::transform(output.buff.begin(), output.buff.end(),output.buff.begin(), ::toupper);
+            send (conn.socket_fd, output.to_buff().data(), strlen(output.to_buff().data()) + 1, 0);
             if(conn.shutdown_command){
                 stop = true;
             }
+            cis427::clear_buff(conn.buff);
         }
-
         close(conn.socket_fd);
         cout << "Connection closed" << endl;
     }
@@ -81,8 +76,7 @@ cis427::Server::~Server() {
     }
 }
 
-std::array<char, MAX_COMMAND_LENGTH> cis427::to_buff(const std::string& str){
-    std::array<char, MAX_COMMAND_LENGTH> arr{};
-    std::copy(str.begin(),str.begin() + MAX_COMMAND_LENGTH, arr.begin());
-    return arr;
+void cis427::Server::set_port(unsigned int port) {
+    Server::m_port = m_port;
 }
+

@@ -4,9 +4,9 @@
 
 #include "../include/server/quotedb.h"
 
-cis427::QuoteDB::QuoteDB(const std::string& path_to_quotes) {
+cis427::QuoteDB::QuoteDB(const std::string& path_to_quotes): m_path_to_quotes(path_to_quotes) {
     std::srand(std::time(NULL));
-    m_file.open(path_to_quotes);
+    m_file.open(path_to_quotes, std::ios::in);
     if(!m_file.is_open()){
         throw 1;
     }
@@ -28,6 +28,7 @@ cis427::QuoteDB::QuoteDB(const std::string& path_to_quotes) {
             }
         }
     }
+    m_file.close();
 }
 
 cis427::QuoteDB::QuoteDB() : m_quotes({}) {}
@@ -45,6 +46,39 @@ std::string cis427::QuoteDB::get_quote(const unsigned long &index) {
 
 int cis427::QuoteDB::get_num_quotes() {
     return m_quotes.size();
+}
+
+bool cis427::QuoteDB::remove_last_quote() {
+    m_quotes.pop_back();
+    write_quotes_to_file();
+    return true;
+}
+
+bool cis427::QuoteDB::add_quote(const std::string &quote, const std::string &author) {
+    if(quote.empty() || author.empty()){
+        return false;
+    }
+
+    std::string input;
+    if(quote.at(quote.size() - 1) == '\n'){
+        input = quote;
+    }
+    else{
+        input = quote + '\n';
+    }
+    input = input + "-- " + author;
+    m_quotes.push_back(input);
+    write_quotes_to_file();
+    return true;
+}
+
+bool cis427::QuoteDB::write_quotes_to_file() {
+    m_file.open(m_path_to_quotes, std::ios::out | std::ios::trunc);
+    for(const auto& quote : m_quotes){
+        m_file << quote << std::endl << std::endl;
+    }
+    m_file.close();
+    return false;
 }
 
 

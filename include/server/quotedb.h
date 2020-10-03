@@ -25,10 +25,17 @@ namespace cis427 {
 
         int get_num_quotes();
 
+        bool add_quote(const std::string& quote, const std::string& author);
+
+        bool remove_last_quote();
+
     private:
 
+        bool write_quotes_to_file();
+
         std::vector<std::string> m_quotes;
-        std::ifstream m_file;
+        std::string m_path_to_quotes;
+        std::fstream m_file;
 
     };
 }

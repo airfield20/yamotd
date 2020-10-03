@@ -288,8 +288,8 @@ Fools! Don't they know that tears are a woman's most effective weapon?
 It's like a condom; I'd rather have it and not need it than need it and
 not have it.
 -- some chick in Alien vs. Predator, when asked why she
-always carries a gun
 
+always carries a gun
 C++ is history repeated as tragedy. Java is history repeated as farce.
 -- Scott McKay
 
@@ -1165,8 +1165,8 @@ such statements, as they tend to sound pretty silly in 5 years.
 
 But what is it good for?
 -- Engineer at the Advanced Computing Systems Division of IBM,
-commenting on the microchip, 1968
 
+commenting on the microchip, 1968
 There is no reason for any individual to have a computer in his home.
 -- Ken Olson, President, Digital Equipment Corporation, 1977
 
@@ -1217,7 +1217,6 @@ disassembled. You’ve got all the parts tying all over your garage and
 you have to replace the broken part or the car will never run. It’s not
 fun until the code gets back to the baseline again.
 -- Gary Kildall (inventor of CP/M, one of the first OS for the micro).
-
 
 Well, if you talk about programming to a group of programmers who use
 the same language, they can become almost evangelistic about the
@@ -1621,3 +1620,7 @@ as long as he or she lives.
 
 Are you willing to wear your white belt?
 -- George Leonard, Mastery.
+
+The universe expands left
+-- root
+

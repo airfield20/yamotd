@@ -2,12 +2,12 @@ OBJS	= main_server.o server.o quotedb.o main_client.o client.o
 OUT	= server client
 
 OBJS0	= main_server.o server.o quotedb.o
-SOURCE0	= main_server.cpp src/server.cpp src/quotedb.cpp
+SOURCE0	= main_server.cpp src/server.cpp src/quotedb.cpp src/helper.hpp
 HEADER0	= ./include/server.h ./include/quotedb.h
 OUT0	= server
 
 OBJS1	= main_client.o client.o
-SOURCE1	= main_client.cpp src/client.cpp
+SOURCE1	= main_client.cpp src/client.cpp src/helper.hpp
 HEADER1	= ./include/client.h
 OUT1	= client
 
