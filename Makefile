@@ -1,5 +1,5 @@
 OBJS	= main_server.o server.o quotedb.o main_client.o client.o
-OUT	= server client
+OUT	= server_app client_app
 
 OBJS0	= main_server.o server.o quotedb.o
 SOURCE0	= main_server.cpp src/server.cpp src/quotedb.cpp src/helper.hpp
