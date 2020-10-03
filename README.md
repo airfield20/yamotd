@@ -23,8 +23,8 @@ make
 ## Usage
  
  - The makefile build generates two binary execitables, server and client. 
- - To run the server just run `./server`
- - To run the client you must provide an ip address Ex: `./client 127.0.0.1`
+ - To run the server **cd into build directory first** then run `./server`
+ - To run the client **cd into build directory first** and you must provide an ip address Ex: `./client 127.0.0.1`
  
  ## Tests
  - To run tests you must build with cmake, tests are created using legacy catch to maintain compatability with c++03 used by UMD servers
