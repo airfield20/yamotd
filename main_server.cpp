@@ -18,7 +18,7 @@ bool login(const std::string& username, const std::string& password){
 }
 
 cis427::Response callback(cis427::Connection& conn){
-    cis427::Response response{};
+    cis427::Response response;
     std::string client_input = std::string(conn.buff);
     if(client_input.at(client_input.size() - 1) == '\n' ){
         client_input = client_input.substr(0, client_input.size() - 1);
@@ -84,7 +84,7 @@ cis427::Response callback(cis427::Connection& conn){
         response.buff = ("OK");
         conn.user = "";
     }
-    else if(client_input.front() == '!'){
+    else if(client_input.at(0) == '!'){
         if(conn.user.empty())
         {
             response.code = 401;

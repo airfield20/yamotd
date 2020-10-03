@@ -36,6 +36,7 @@ int cis427::Server::start_server(Response(*callback_function)(Connection&)) {
     cout << "The server is up, waiting for connection on port " << m_port << endl;
     Connection conn;
     conn.addr = "";
+    conn.shutdown_command = false;
     clients.push_back(conn);
     connection_handler(clients.at(0));
     return 0;

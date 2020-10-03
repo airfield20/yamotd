@@ -6,11 +6,38 @@
 #define P1_HELPER_HPP
 
 
+#include <sstream>
+
 #define MAX_COMMAND_LENGTH 5000
+
 
 namespace cis427 {
 
     typedef char* array;
+
+/**
+  * @brief We are confined to c++ 98 so this macro is for converting ints to strings
+  */
+
+    std::string NumberToString ( int Number )
+    {
+        std::ostringstream ss;
+        ss << Number;
+        return ss.str();
+    }
+
+    /**
+     * @brief Also for legacy compatability with old compiler on UMD Server
+     * @param str
+     * @return
+     */
+    int FromString(const std::string& str)
+    {
+        std::istringstream ss(str);
+        int ret;
+        ss >> ret;
+        return ret;
+    }
 
     /**
      * Converts a string to a char array to use as a buffer in the socket
@@ -56,13 +83,13 @@ namespace cis427 {
         Response(const char* ibuff){
             std::string buffstr = std::string(ibuff);
             if(!buffstr.empty()) {
-                code = std::stoi(buffstr.substr(0, 3));
+                code = FromString(buffstr.substr(0, 3));
                 buff = buffstr.substr(4);
             }
         }
 
         const char * to_buff(){
-            std::string bstr = std::to_string(code) + ' ' + buff;
+            std::string bstr = NumberToString(code) + ' ' + buff;
             char * ret = new char[MAX_COMMAND_LENGTH];
             for(int i=0;i<bstr.size();i++){
                 ret[i] = bstr.at(i);

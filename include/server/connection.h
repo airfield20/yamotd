@@ -14,7 +14,7 @@ namespace cis427{
         std::string addr;
         int socket_fd;
         char buff[MAX_COMMAND_LENGTH];
-        bool shutdown_command = false;
+        bool shutdown_command;
     };
 }
 
