@@ -103,8 +103,10 @@ cis427::Response callback(cis427::Connection& conn){
     return response;
 }
 
-int main() {
+int main(int argc, char * argv[]) {
+    std::cout << "Creating server" << std::endl;
     cis427::Server server(SERVER_PORT);
+    std::cout << "Starting server" << std::endl;
     int stat = server.start_server(callback);
     if(stat == 1){
         server.set_port(SERVER_PORT + 1);

@@ -11,7 +11,7 @@ SOURCE1	= main_client.cpp src/client.cpp src/helper.hpp
 HEADER1	= ./include/client.h
 OUT1	= client
 
-CC	 = g++ -std=c++03
+CC	 = g++
 FLAGS	 = -g -c -Iinclude/
 LFLAGS	 =
 
