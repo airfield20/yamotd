@@ -34,11 +34,11 @@ std::string query_user(){
         std::cout << "> ";
         std::getline(std::cin, command);
     }
-    if(!std::isdigit(command.front())) {
+    if(!std::isdigit(command.at(0))) {
         return command;
     }
     else{
-        int num = static_cast<int>(command.front()) - 48;
+        int num = static_cast<int>(command.at(0)) - 48;
         switch (num) {
             case 0:
                 return "MSGGET";

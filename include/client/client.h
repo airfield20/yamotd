@@ -8,13 +8,13 @@
 #include <iostream>
 #include <sys/socket.h>
 #include <netinet/in.h>
-#include <array>
 #include <vector>
 #include <cstdio>
 #include <string>
 #include <unistd.h>
 #include <cstring>
 #include <arpa/inet.h>
+#include <cstdlib>
 
 #include "../../src/helper.hpp"
 
