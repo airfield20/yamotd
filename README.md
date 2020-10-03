@@ -8,6 +8,9 @@ UMD uses g++ v 4.4.7 which has very limited c++11 features and does not support 
 
 The sole author of this project is Aaron Cofield. I did not have a partner
 
+##Note:
+All code is thoroughly documented with doxygen style comments and inline comments
+
 ## Building
 There are two methods provided to build the project. Cmake (included for CLion and Kdevelop compatability) and Makefile (Submission requirement)
  - To build with make just type `make` in the projects root directory
@@ -26,11 +29,39 @@ make
  ## Tests
  - To run tests you must build with cmake, tests are created using legacy catch to maintain compatability with c++03 used by UMD servers
  
- ## Documentation is here
- [Docs](docs/html/index.html)
- 
  Per submission requirements a list of functions is required
- - 
+ - print_help
+ - query_user
+ - query_quote
+ - login
+ - callback
+ - Response()
+ - Response(const int& icode, const std::string& ibuff)
+ - Response(const std::array<char, MAX_COMMAND_LENGTH>& ibuff)
+ - std::array<char, MAX_COMMAND_LENGTH> to_buff()
+ - inline std::string buff_to_string(const std::array<char, MAX_COMMAND_LENGTH>& buff){
+- inline void clear_buff(std::array<char, MAX_COMMAND_LENGTH>& buff){
+- inline std::array<char, MAX_COMMAND_LENGTH> to_buff(const std::string &str) {
+- Client(const std::string &server_addr);
+- bool client_connect();
+- bool send_command(const std::array<char, MAX_COMMAND_LENGTH> &buff, const unsigned int &len);
+- Response client_recieve();
+- void disconnect();
+- virtual ~Client();
+- Server(const unsigned int& port);
+- int start_server(Response(*callback_function)(Connection&));
+- void set_port(unsigned int port);
+- virtual ~Server();
+-  explicit QuoteDB(const std::string &path_to_quotes);
+- QuoteDB();
+- std::string get_random_quote();
+- std::string get_quote(const unsigned long &index);
+-  int get_num_quotes();
+-  bool add_quote(const std::string& quote, const std::string& author);
+- bool remove_last_quote();
+ - write_quotes_to_file
+ 
+ 
  
  ## Submission Requirements
  ### Known bugs
