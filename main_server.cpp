@@ -107,10 +107,6 @@ int main(int argc, char * argv[]) {
     std::cout << "Creating server" << std::endl;
     cis427::Server server(SERVER_PORT);
     std::cout << "Starting server" << std::endl;
-    int stat = server.start_server(callback);
-    if(stat == 1){
-        server.set_port(SERVER_PORT + 1);
-        server.start_server(callback);
-    }
+    server.start_server(callback);
     return 0;
 }
