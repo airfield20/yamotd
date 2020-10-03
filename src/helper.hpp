@@ -5,20 +5,20 @@
 #ifndef P1_HELPER_HPP
 #define P1_HELPER_HPP
 
-#include <array>
 
 #define MAX_COMMAND_LENGTH 5000
 
 namespace cis427 {
+
+    typedef char* array;
+
     /**
      * Converts a string to a char array to use as a buffer in the socket
      * @param str string to be put into buffer
      * @return buffer from string, extra spaces will be filled with \0 000
      */
-    inline std::array<char, MAX_COMMAND_LENGTH> to_buff(const std::string &str) {
-        std::array<char, MAX_COMMAND_LENGTH> arr{};
-        std::copy(str.begin(), str.begin() + MAX_COMMAND_LENGTH, arr.begin());
-        return arr;
+    inline const char * to_buff(const std::string &str) {
+        return str.c_str();
     }
 
     /**
@@ -26,8 +26,8 @@ namespace cis427 {
      * @param buff
      * @return a string from the buffer
      */
-    inline std::string buff_to_string(const std::array<char, MAX_COMMAND_LENGTH>& buff){
-        return std::string(buff.data());
+    inline std::string buff_to_string(const char * buff){
+        return std::string(buff);
     }
 
     /**
@@ -36,9 +36,9 @@ namespace cis427 {
      * you will have extra characters in your buffer
      * @param buff buffer to be filled with \0 000
      */
-    inline void clear_buff(std::array<char, MAX_COMMAND_LENGTH>& buff){
-        for(char& c: buff){
-            c = '\0';
+    inline void clear_buff(char * buff){
+        for(int i=0;i<MAX_COMMAND_LENGTH;i++){
+            buff[i] = '\0';
         }
     }
 
@@ -53,19 +53,21 @@ namespace cis427 {
             code = icode;
             buff = ibuff;
         }
-        Response(const std::array<char, MAX_COMMAND_LENGTH>& ibuff){
-            std::string buffstr = std::string(ibuff.data());
+        Response(const char* ibuff){
+            std::string buffstr = std::string(ibuff);
             if(!buffstr.empty()) {
                 code = std::stoi(buffstr.substr(0, 3));
                 buff = buffstr.substr(4);
             }
         }
 
-        std::array<char, MAX_COMMAND_LENGTH> to_buff(){
-            std::string str = std::to_string(code) + ' ' + buff;
-            std::array<char, MAX_COMMAND_LENGTH> arr{};
-            std::copy(str.begin(), str.begin() + MAX_COMMAND_LENGTH, arr.begin());
-            return arr;
+        const char * to_buff(){
+            std::string bstr = std::to_string(code) + ' ' + buff;
+            char * ret = new char[MAX_COMMAND_LENGTH];
+            for(int i=0;i<bstr.size();i++){
+                ret[i] = bstr.at(i);
+            }
+            return ret;
         }
 
         int code;

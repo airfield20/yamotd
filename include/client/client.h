@@ -45,7 +45,7 @@ namespace cis427 {
          * @param len number of bytes being sent
          * @return true if something was sent to the server, false if send fails
          */
-        bool send_command(const std::array<char, MAX_COMMAND_LENGTH> &buff, const unsigned int &len);
+        bool send_command(const char * buff, const unsigned int &len);
 
         /**
          * @brief Blocking wait for socket to receive data from server

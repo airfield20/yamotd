@@ -25,8 +25,8 @@ bool cis427::Client::client_connect() {
     return is_connected;
 }
 
-bool cis427::Client::send_command(const std::array<char, MAX_COMMAND_LENGTH> &buff, const unsigned int &len) {
-    int sent = send(m_socket, buff.data(), len, 0);
+bool cis427::Client::send_command(const char * buff, const unsigned int &len) {
+    int sent = send(m_socket, buff, len, 0);
     if(sent == -1){
         is_connected = false;
         return false;
@@ -35,8 +35,8 @@ bool cis427::Client::send_command(const std::array<char, MAX_COMMAND_LENGTH> &bu
 }
 
 cis427::Response cis427::Client::client_recieve() {
-    std::array<char, MAX_COMMAND_LENGTH> rbuf{};
-    recv (m_socket, rbuf.data(), sizeof(rbuf), 0);
+    char rbuf[MAX_COMMAND_LENGTH];
+    recv (m_socket, rbuf, sizeof(rbuf), 0);
     return Response(rbuf);
 }
 

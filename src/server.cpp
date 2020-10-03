@@ -53,10 +53,10 @@ int cis427::Server::connection_handler(Connection &conn) {
         }
         cout << "new connection from " << inet_ntoa(m_sockaddr_in.sin_addr) << endl;
         conn.addr = std::string(inet_ntoa(m_sockaddr_in.sin_addr));
-        while (!stop && (recv(conn.socket_fd, conn.buff.data(), conn.buff.size(), 0))) {
+        while (!stop && (recv(conn.socket_fd, conn.buff, sizeof(conn.buff), 0))) {
             Response output = m_callback_function(conn);
-            std::cout << "GOT: " << std::string(conn.buff.data()) << " SENDING: " << std::string(output.buff.data()) << std::endl;
-            send (conn.socket_fd, output.to_buff().data(), strlen(output.to_buff().data()) + 1, 0);
+            std::cout << "GOT: " << std::string(conn.buff) << " SENDING: " << std::string(output.buff.data()) << std::endl;
+            send (conn.socket_fd, output.to_buff(), strlen(output.to_buff()) + 1, 0);
             if(conn.shutdown_command){
                 stop = true;
             }

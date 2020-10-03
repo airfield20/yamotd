@@ -7,11 +7,11 @@
 cis427::QuoteDB quote_db(MESSAGES_PATH);
 
 bool login(const std::string& username, const std::string& password){
-    std::array<std::string, 5> users = {"root", "john", "david", "mary", "notfound"};
-    std::array<std::string, 4> passwords = {"root01", "john01", "david01", "mary01"};
+    std::string users[5] = {"root", "john", "david", "mary", "notfound"};
+    std::string passwords[4] = {"root01", "john01", "david01", "mary01"};
 
-    int user_index = std::distance(users.begin(), std::find(users.begin(),users.end(), username));
-    if(user_index < 5 && password.compare(passwords.at(user_index)) == 0 ){
+    int user_index = std::distance(users, std::find(users,users, username));
+    if(user_index < 5 && password.compare(passwords[user_index]) == 0 ){
         return true;
     }
     return false;
@@ -19,7 +19,7 @@ bool login(const std::string& username, const std::string& password){
 
 cis427::Response callback(cis427::Connection& conn){
     cis427::Response response{};
-    std::string client_input = std::string(conn.buff.data());
+    std::string client_input = std::string(conn.buff);
     if(client_input.at(client_input.size() - 1) == '\n' ){
         client_input = client_input.substr(0, client_input.size() - 1);
     }
@@ -91,7 +91,7 @@ cis427::Response callback(cis427::Connection& conn){
             response.buff = ("You are not currently logged in, login first");
         }
         else{
-            quote_db.add_quote(std::string(conn.buff.data()).substr(1), conn.user);
+            quote_db.add_quote(std::string(conn.buff).substr(1), conn.user);
             response.code = 200;
             response.buff = ("OK");
         }

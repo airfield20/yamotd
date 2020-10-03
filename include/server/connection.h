@@ -13,7 +13,7 @@ namespace cis427{
         std::string user;
         std::string addr;
         int socket_fd;
-        std::array<char, MAX_COMMAND_LENGTH> buff;
+        char buff[MAX_COMMAND_LENGTH];
         bool shutdown_command = false;
     };
 }
