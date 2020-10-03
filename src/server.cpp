@@ -4,10 +4,8 @@
 
 #include "../include/server/server.h"
 
-cis427::Server::Server(const unsigned int &port) :
-        m_port(port),
-        m_socklen{},
-        m_sockaddr_in{}{
+cis427::Server::Server(const unsigned int &port){
+    m_port = port;
     memset(reinterpret_cast<char *>(&m_sockaddr_in), 0, sizeof(m_sockaddr_in));
     m_sockaddr_in.sin_family = AF_INET;
     m_sockaddr_in.sin_addr.s_addr = INADDR_ANY;
@@ -72,8 +70,8 @@ int cis427::Server::connection_handler(Connection &conn) {
 
 cis427::Server::~Server() {
 //close all socket connections here
-    for(const auto& conn: clients){
-        close(conn.socket_fd);
+    for(int i=0;i<clients.size();i++){
+        close(clients.at(i).socket_fd);
     }
 }
 
