@@ -20,7 +20,7 @@ mkdir build -p; cd build
 cmake ..
 make
 ```
- ## Usage
+## Usage
  
  - The makefile build generates two binary execitables, server and client. 
  - To run the server just run `./server`
