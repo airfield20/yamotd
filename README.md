@@ -8,7 +8,7 @@ UMD uses g++ v 4.4.7 which has very limited c++11 features and does not support 
 
 The sole author of this project is Aaron Cofield. I did not have a partner
 
-##Note:
+## Note:
 All code is thoroughly documented with doxygen style comments and inline comments
 
 ## Building
