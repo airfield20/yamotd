@@ -1,6 +1,6 @@
-cmake_minimum_required(VERSION 3.0)
-set(PROJECT_NAME P1)
-project(P1)
+cmake_minimum_required(VERSION 3.1)
+set(PROJECT_NAME P2)
+project(P2)
 
 set(CMAKE_CXX_STANDARD 11)
 
@@ -43,8 +43,14 @@ target_include_directories(${PROJECT_NAME}_server PRIVATE ${SERVER_INCLUDE_DIR})
 file(GLOB_RECURSE CFILES "${CMAKE_SOURCE_DIR}/P1_docs/*.cpp")
 set_source_files_properties(${CFILES} PROPERTIES LANUGAGE CXX)
 
-add_executable(${PROJECT_NAME}_demo_server P1_docs/sampleP1/server_demo.cpp)
-add_executable(${PROJECT_NAME}_demo_client P1_docs/sampleP1/client_demo.cpp)
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+find_package(Threads REQUIRED)
+
+add_executable(${PROJECT_NAME}_demo_server P2_docs/sampleP2/server_demo.cpp)
+add_executable(${PROJECT_NAME}_demo_client P2_docs/sampleP2/client_demo.cpp)
+
+target_link_libraries(${PROJECT_NAME}_demo_server PRIVATE Threads::Threads)
+target_link_libraries(${PROJECT_NAME}_demo_client PRIVATE Threads::Threads)
 
 ###########
 ##TESTING##
