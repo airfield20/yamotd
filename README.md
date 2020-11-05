@@ -1,6 +1,6 @@
 # Yet another message of the day
 
-CIS 427 Program 1
+CIS 427 Program 2
 
 This project uses catchv1 to support the compiler installed on the UMD servers.
 
