@@ -67,16 +67,16 @@ namespace cis427 {
          */
         int connection_handler();
 
-        static void * thread_loop(void * conn);
+        [[noreturn]] static void * thread_loop(void * connection);
 
         std::vector<Connection> clients;
         unsigned int m_port;
         struct sockaddr_in m_sockaddr_in;
         socklen_t m_socklen;
-        Response (*m_callback_function)(Connection&);
+        static Response (*m_callback_function)(Connection&);
         int m_socket;
-
-        fd_set m_master;   // master file descriptor list
+        static bool m_stop;
+        static fd_set m_master;   // master file descriptor list
         int m_fdmax;
     };
 }

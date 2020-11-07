@@ -18,6 +18,7 @@ namespace cis427{
         pthread_t thread;
         char buff[MAX_COMMAND_LENGTH];
         bool shutdown_command;
+        Response (*callback_function)(Connection&);
     };
 }
 
