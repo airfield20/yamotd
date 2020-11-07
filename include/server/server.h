@@ -65,7 +65,9 @@ namespace cis427 {
          * @param conn Connection object to use, NOTE: this is only suited for 1 active connection
          * @return 0 when server is no longer active
          */
-        int connection_handler(Connection& conn);
+        int connection_handler();
+
+        static void * thread_loop(void * conn);
 
         std::vector<Connection> clients;
         unsigned int m_port;
@@ -73,6 +75,9 @@ namespace cis427 {
         socklen_t m_socklen;
         Response (*m_callback_function)(Connection&);
         int m_socket;
+
+        fd_set m_master;   // master file descriptor list
+        int m_fdmax;
     };
 }
 

@@ -6,6 +6,8 @@
 #define P1_CONNECTION_H
 
 #include <string>
+#include <pthread.h>
+
 #include "../../src/helper.hpp"
 
 namespace cis427{
@@ -13,6 +15,7 @@ namespace cis427{
         std::string user;
         std::string addr;
         int socket_fd;
+        pthread_t thread;
         char buff[MAX_COMMAND_LENGTH];
         bool shutdown_command;
     };

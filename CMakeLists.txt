@@ -5,6 +5,13 @@ project(P2)
 set(CMAKE_CXX_STANDARD 11)
 
 ######################
+#####FIND PACKAGES####
+######################
+
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+find_package(Threads REQUIRED)
+
+######################
 ##CLIENT APPLICATION##
 ######################
 
@@ -18,6 +25,7 @@ set(CLIENT_INCLUDE_DIR
 
 add_executable(${PROJECT_NAME}_client main_client.cpp ${CLIENT_SRC_FILES})
 target_include_directories(${PROJECT_NAME}_client PRIVATE ${CLIENT_INCLUDE_DIR})
+target_link_libraries(${PROJECT_NAME}_client PRIVATE Threads::Threads)
 
 ######################
 ##SERVER APPLICATION##
@@ -35,6 +43,7 @@ set(SERVER_INCLUDE_DIR
 
 add_executable(${PROJECT_NAME}_server main_server.cpp ${SERVER_SRC_FILES})
 target_include_directories(${PROJECT_NAME}_server PRIVATE ${SERVER_INCLUDE_DIR})
+target_link_libraries(${PROJECT_NAME}_server PRIVATE Threads::Threads)
 
 ############
 ##DEMO APP##
@@ -42,9 +51,6 @@ target_include_directories(${PROJECT_NAME}_server PRIVATE ${SERVER_INCLUDE_DIR})
 
 file(GLOB_RECURSE CFILES "${CMAKE_SOURCE_DIR}/P1_docs/*.cpp")
 set_source_files_properties(${CFILES} PROPERTIES LANUGAGE CXX)
-
-set(THREADS_PREFER_PTHREAD_FLAG ON)
-find_package(Threads REQUIRED)
 
 add_executable(${PROJECT_NAME}_demo_server P2_docs/sampleP2/server_demo.cpp)
 add_executable(${PROJECT_NAME}_demo_client P2_docs/sampleP2/client_demo.cpp)
@@ -61,3 +67,4 @@ set(CATCH_INCLUDE_DIR include/external/catch2)
 file(GLOB_RECURSE TEST_FILES "${CMAKE_SOURCE_DIR}/tests/*.cpp")
 add_executable(${PROJECT_NAME}_tests ${TEST_FILES} ${SERVER_SRC_FILES} ${CLIENT_SRC_FILES})
 target_include_directories(${PROJECT_NAME}_tests PRIVATE ${CATCH_INCLUDE_DIR} ${SERVER_INCLUDE_DIR} ${CLIENT_INCLUDE_DIR})
+target_link_libraries(${PROJECT_NAME}_tests PRIVATE Threads::Threads)
