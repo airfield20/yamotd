@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.1)
 set(PROJECT_NAME P2)
 project(P2)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 98)
 
 ######################
 #####FIND PACKAGES####
@@ -33,7 +33,7 @@ target_link_libraries(${PROJECT_NAME}_client PRIVATE Threads::Threads)
 
 set(SERVER_SRC_FILES
         src/server.cpp
-        src/server.cpp
+        src/helper.hpp
         src/quotedb.cpp
         )
 

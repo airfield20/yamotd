@@ -48,7 +48,7 @@ namespace cis427 {
          * @param callback_function function that will be called whenever data is received
          * @return 0 when the server is no longer running, 1 if the server is unable to start
          */
-        int start_server(Response(*callback_function)(Connection&));
+        int start_server(Response(*callback_function)(Connection*));
         /**
          * Allows you to set the port again if for some reason you want to
          * @param port new port you want to use
@@ -59,6 +59,9 @@ namespace cis427 {
          */
         virtual ~Server();
 
+        static bool send_to(Message msg);
+
+
     private:
         /**
          * Loop that handles sending and receiving data and calls callback function
@@ -67,17 +70,17 @@ namespace cis427 {
          */
         int connection_handler();
 
-        [[noreturn]] static void * thread_loop(void * connection);
+        static void * thread_loop(void * connection);
 
         std::vector<Connection> clients;
-        unsigned int m_port;
+        static unsigned int m_port;
         struct sockaddr_in m_sockaddr_in;
         socklen_t m_socklen;
-        static Response (*m_callback_function)(Connection&);
-        int m_socket;
+        static Response (*m_callback_function)(Connection*);
+        static int m_socket;
         static bool m_stop;
         static fd_set m_master;   // master file descriptor list
-        int m_fdmax;
+        static int m_fdmax;
     };
 }
 

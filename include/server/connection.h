@@ -19,7 +19,16 @@ namespace cis427{
         char buff[MAX_COMMAND_LENGTH];
         bool shutdown_command;
         Response (*callback_function)(Connection&);
+        std::string helper;
     };
+
+    struct Message{
+        cis427::Connection recipient;
+        cis427::Connection sender;
+        std::string message;
+        bool read;
+    };
+
 }
 
 #endif //P1_CONNECTION_H

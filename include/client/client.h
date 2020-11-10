@@ -15,8 +15,10 @@
 #include <cstring>
 #include <arpa/inet.h>
 #include <cstdlib>
+#include <pthread.h>
 
 #include "../../src/helper.hpp"
+#include "../server/connection.h"
 
 #define SERVER_PORT 8081
 #define MAX_COMMAND_LENGTH 5000
@@ -53,6 +55,8 @@ namespace cis427 {
          */
         Response client_recieve();
 
+        static void * client_listen(void * sock);
+
         /**
          * @brief closes the connection to the server
          */
@@ -72,6 +76,9 @@ namespace cis427 {
         std::vector<Response> m_response_history;
         int m_socket;
         std::string m_server_addr;
+        pthread_t m_listen_thread;
+        static std::vector<char *> m_msg_buff;
+        static pthread_mutex_t m_msg_buff_lock;
 
     };
 

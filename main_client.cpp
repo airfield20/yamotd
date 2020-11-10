@@ -1,5 +1,6 @@
 #include <iostream>
 #include <algorithm>
+#include <pthread.h>
 
 #include "include/client/client.h"
 
@@ -74,6 +75,7 @@ int main(int argc, char * argv[]) {
         std::cout << "Usage: client <Server IP Address>" << std::endl;
         exit(1);
     }
+
 
     cis427::Client client((std::string(argv[1]))); //connect to ip address given as argument
     if(!client.client_connect()){

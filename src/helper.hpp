@@ -8,13 +8,11 @@
 
 #include <sstream>
 
+
 #define MAX_COMMAND_LENGTH 5000
 
 
 namespace cis427 {
-
-    typedef char* array;
-
 /**
   * @brief We are confined to c++ 98 so this macro is for converting ints to strings
   */
@@ -27,7 +25,7 @@ namespace cis427 {
     }
 
     /**
-     * @brief Also for legacy compatability with old compiler on UMD Server
+     * @brief Also for legacy compatibility with old compiler on UMD Server
      * @param str
      * @return
      */
@@ -49,7 +47,7 @@ namespace cis427 {
     }
 
     /**
-     * Unused so far, just put this here so I wouldnt forget how to convert between the two
+     * Unused so far, just put this here so I wouldn't forget how to convert between the two
      * @param buff
      * @return a string from the buffer
      */
@@ -84,7 +82,9 @@ namespace cis427 {
             std::string buffstr = std::string(ibuff);
             if(!buffstr.empty()) {
                 code = FromString(buffstr.substr(0, 3));
-                buff = buffstr.substr(4);
+                if(buffstr.size() > 3) {
+                    buff = buffstr.substr(4);
+                }
             }
         }
 
@@ -100,7 +100,6 @@ namespace cis427 {
         int code;
         std::string buff;
     };
-
 }
 
 #endif
