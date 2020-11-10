@@ -65,7 +65,7 @@ make
  
  ## Submission Requirements
  ### Known bugs
-  - None
+  - when shutting down server, the server will not exit until another client attempts to connect.
   
  ### Sample outputs
  #### Server

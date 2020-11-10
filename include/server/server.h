@@ -58,18 +58,27 @@ namespace cis427 {
          * @brief destroys the server and calls close on all socket file descriptors
          */
         virtual ~Server();
-
+        /**
+         * @brief this function enables clients to send messages to each other through the server
+         * @param msg this object contains a string message and the sender and recipient information
+         * @return true if successful, otherwise false
+         */
         static bool send_to(Message msg);
 
 
     private:
+
         /**
-         * Loop that handles sending and receiving data and calls callback function
-         * @param conn Connection object to use, NOTE: this is only suited for 1 active connection
-         * @return 0 when server is no longer active
+         * @brief This function accepts new connections and spawns new threads to manage those connections
+         * @return 0 when finished
          */
         int connection_handler();
 
+        /**
+         * Loop that handles sending and receiving data and calls callback function, it does all this in a separate thread
+         * @param conn Connection object to use that has information about the clien
+         * @return nothing
+         */
         static void * thread_loop(void * connection);
 
         std::vector<Connection> clients;

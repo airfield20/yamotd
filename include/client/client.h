@@ -50,11 +50,16 @@ namespace cis427 {
         bool send_command(const char * buff, const unsigned int &len);
 
         /**
-         * @brief Blocking wait for socket to receive data from server
+         * @brief Blocking wait for message stack to contain message from server
          * @return a response object that contains the response code and char buffer from the server
          */
         Response client_recieve();
 
+        /**
+         * @brief This listens on a separate thread for information from the server, it adds that info to a message stack
+         * @param sock
+         * @return
+         */
         static void * client_listen(void * sock);
 
         /**
